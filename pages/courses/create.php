@@ -35,7 +35,7 @@
     <br>
 
     <div class="container">
-        <form method="POST" action="/db/courses/create.php">
+        <form method="POST" action="/src/app/courses/create.php">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Name</label>
                 <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp">

@@ -1,6 +1,13 @@
 <?php
 
-include("../../db/courses/index.php");
+use Src\data\db;
+
+include("../../vendor/autoload.php");
+
+
+$tasks = new db("tasks");
+$re = $tasks->select("courses");
+
 
 
 
@@ -62,7 +69,7 @@ include("../../db/courses/index.php");
                                 <input type="hidden" name="id" value="<?= $value['id'] ?>">
                                 <button type="submit" class="btn btn-outline-info">E</button>
                             </form>
-                            <form class="ms-2" action="../../db/courses/delete.php" method="post">
+                            <form class="ms-2" action="../../src/app/courses/delete.php" method="post">
                                 <input type="hidden" name="id" value="<?= $value['id'] ?>">
                                 <button type="submit" class="btn btn-outline-danger">D</button>
                             </form>

@@ -1,32 +1,20 @@
 <?php
 
+use Src\data\db;
+
+include("../../vendor/autoload.php");
+
 $id = $_POST['id'];
 
+$tasks = new db("tasks");
+$re = $tasks->select("courses");
+foreach ($re as $key => $value) {
 
-$con = "mysql:host=localhost;dbname=tasks";
-$user = "root";
-$pass = "";
+    if ($value['id'] == $id) {
 
-try {
-    $db = new PDO($con, $user, $pass);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "SELECT * FROM courses ";
-    $stmt = $db->prepare($sql);
-    $stmt->execute();
-    $re = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    foreach ($re as $key => $value) {
-
-        if ($value['id'] == $id) {
-
-            $selector = $value;
-        }
+        $selector = $value;
     }
-} catch (PDOException $th) {
-
-    echo  $th->getMessage();
 }
-
 
 ?>
 
@@ -47,7 +35,7 @@ try {
     <br>
 
     <div class="container">
-        <form method="POST" action="/db/courses/update.php">
+        <form novalidate method="POST" action="../../src/app/courses/update.php">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Name</label>
                 <input type="text" value="<?= $selector['name'] ?>" class="form-control" name="name">
