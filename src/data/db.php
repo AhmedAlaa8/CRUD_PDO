@@ -60,7 +60,7 @@ class db
     }
 
 
-    public function create(string $table, array $data, array $values)
+    public function create(string $table, string $folderName, array $data, array $values)
     {
         $dis = $this->dis($data, $values);
 
@@ -74,14 +74,14 @@ class db
 
             $db->exec($q);
 
-            header("location: /pages/courses/index.php");
+            header("location: /pages/$folderName/index.php");
         } catch (PDOException $e) {
 
             echo "Failed" . $e->getMessage();
         }
     }
 
-    public function update(string $table, array $postData, int $id)
+    public function update(string $table, string $folderName, array $postData, int $id)
     {
         $dis = $this->disUpdate($postData);
 
@@ -96,14 +96,14 @@ class db
 
             $db->exec($q);
 
-            header("location: /pages/courses/index.php");
+            header("location: /pages/$folderName/index.php");
         } catch (PDOException $e) {
 
             echo "Failed" . $e->getMessage();
         }
     }
 
-    public function delete(string $table, int $id)
+    public function delete(string $table, string $folderName, int $id)
     {
 
         try {
@@ -114,7 +114,7 @@ class db
 
             $db->exec($q);
 
-            header("location: /pages/courses/index.php");
+            header("location: /pages/$folderName/index.php");
         } catch (PDOException $e) {
 
             echo "Failed" . $e->getMessage();

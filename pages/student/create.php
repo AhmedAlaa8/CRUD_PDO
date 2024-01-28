@@ -1,10 +1,3 @@
-<?php
-
-// var_dump($_SERVER["REQUEST_URI"] = "index.php");
-// die;
-
-?>
-
 <!doctype html>
 <html lang="en">
 
@@ -42,7 +35,7 @@
     <br>
 
     <div class="container">
-        <form method="POST" action="/db/student/create.php">
+        <form method="POST" action="/src/app/students/create.php">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Name</label>
                 <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp">

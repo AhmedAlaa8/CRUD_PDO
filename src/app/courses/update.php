@@ -12,4 +12,4 @@ $id = $_POST['id'];
 
 
 $tasks = new db("tasks");
-$tasks->update("courses", $_POST, $id);
+$tasks->update("courses", "courses", $_POST, $id);
