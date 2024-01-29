@@ -90,9 +90,9 @@ foreach ($datasc as $key => $value) {
     <br>
 
     <div class="container">
-        <form method="POST" action="/db/stco/update.php">
+        <form method="POST" action="/src/app/stco/update.php">
 
-            <select name="st_id" class="form-select" aria-label="Default select example">
+            <select name="student_id" class="form-select" aria-label="Default select example">
                 <option selected value="<?= $oldDataInt['s'] ?>"><?= $oldData['student'] ?> </option>
                 <?php
                 foreach ($datas as $key => $value) : ?>
@@ -102,8 +102,7 @@ foreach ($datasc as $key => $value) {
             </select>
             <br>
             <br>
-
-            <select name="co_id" class="form-select" aria-label="Default select example">
+            <select name="course_id" class="form-select" aria-label="Default select example">
                 <option selected value="<?= $oldDataInt['c'] ?>"><?= $oldData['course'] ?></option>
 
                 <?php
@@ -115,7 +114,7 @@ foreach ($datasc as $key => $value) {
             </select>
             <br>
             <br>
-            <select name="vote" class="form-select" aria-label="Default select example">
+            <select name="vo" class="form-select" aria-label="Default select example">
                 <option selected value="<?= $oldData['vote'] ?>"><?= $oldData['vote'] ?></option>
                 <option value="1">Bad</option>
                 <option value="2">Not bad</option>

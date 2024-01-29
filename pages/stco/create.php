@@ -1,23 +1,12 @@
 <?php
 
-$con = "mysql:host=localhost;dbname=tasks";
-$user = "root";
-$pass = "";
+use Src\data\db;
 
-$db = new PDO($con, $user, $pass);
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+include("../../vendor/autoload.php");
 
-$qs = "SELECT * FROM `students`";
-$qc = "SELECT * FROM `courses`";
-
-$results = $db->prepare($qs);
-$results->execute();
-$datas = $results->fetchAll(PDO::FETCH_ASSOC);
-
-$resultc = $db->prepare($qc);
-$resultc->execute();
-$datac = $resultc->fetchAll(PDO::FETCH_ASSOC);
-
+$tasks = new db("tasks");
+$datac = $tasks->select("courses");
+$datas = $tasks->select("students");
 
 ?>
 
@@ -58,7 +47,7 @@ $datac = $resultc->fetchAll(PDO::FETCH_ASSOC);
     <br>
 
     <div class="container">
-        <form method="POST" action="/db/stco/create.php">
+        <form method="POST" action="/src/app/stco/create.php">
             <select name="st_id" class="form-select" aria-label="Default select example">
                 <option selected value="0">Open this select student</option>
                 <?php

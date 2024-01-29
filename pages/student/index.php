@@ -1,6 +1,14 @@
 <?php
 
-include("../../db/student/index.php");
+use Src\data\db;
+
+include("../../vendor/autoload.php");
+
+
+$tasks = new db("tasks");
+$re = $tasks->select("students");
+
+
 
 
 ?>

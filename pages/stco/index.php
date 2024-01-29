@@ -1,6 +1,20 @@
 <?php
 
-include("../../db/stco/index.php");
+
+use Src\data\db;
+
+include("../../vendor/autoload.php");
+
+$tasks = new db("tasks");
+
+$data = $tasks->selectJoin("SELECT `st&cu`.`id` ,`courses`.`name` AS course , `students`.`name` AS student , `st&cu`.`vo` 
+FROM `st&cu` 
+INNER JOIN `students` 
+ON `st&cu`.`student_id` = `students`.`id` 
+INNER JOIN `courses` 
+ON `st&cu`.`course_id` = `courses`.`id`
+ORDER BY `st&cu`.`id`");
+
 
 
 ?>
@@ -50,7 +64,7 @@ include("../../db/stco/index.php");
                     <th scope="col">Siting</th>
                 </tr>
 
-                <?php foreach ($re as $key => $value) : ?>
+                <?php foreach ($data as $key => $value) : ?>
                     <tr>
                         <th scope="row"><?= $key++ ?></th>
                         <td><?= $value['id'] ?></td>
@@ -78,7 +92,7 @@ include("../../db/stco/index.php");
                                 <input type="hidden" name="id" value="<?= $value['id'] ?>">
                                 <button type="submit" class="btn btn-outline-info">E</button>
                             </form>
-                            <form class="ms-2" action="../../db/stco/delete.php" method="post">
+                            <form class="ms-2" action="/src/app/stco/delete.php" method="post">
                                 <input type="hidden" name="id" value="<?= $value['id'] ?>">
                                 <button type="submit" class="btn btn-outline-danger">D</button>
                             </form>

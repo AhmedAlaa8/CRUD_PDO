@@ -20,7 +20,7 @@ class db
         $this->pass = "";
     }
 
-    private function coonect()
+    private function connect()
     {
         $db = new PDO($this->conn, $this->user, $this->pass);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -68,7 +68,7 @@ class db
 
         try {
 
-            $db = $this->coonect();
+            $db = $this->connect();
 
             $q = "INSERT INTO `$table` ($dis[0]) VALUES ( $dis[1])";
 
@@ -89,7 +89,7 @@ class db
 
         try {
 
-            $db = $this->coonect();
+            $db = $this->connect();
 
             $q = "UPDATE `$table` SET $dis WHERE id=$id";
 
@@ -108,7 +108,7 @@ class db
 
         try {
 
-            $db = $this->coonect();
+            $db = $this->connect();
 
             $q = "DELETE FROM `$table` WHERE `id` = $id";
 
@@ -125,9 +125,98 @@ class db
 
         try {
 
-            $db = $this->coonect();
+            $db = $this->connect();
 
             $sql = "SELECT * FROM `$table` ";
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            $re = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $re;
+        } catch (PDOException $e) {
+
+            echo "Failed" . $e->getMessage();
+        }
+    }
+
+    private function disJoin(string $table, string $tableJoneOne, string $tableJoneTwo, array $tableOfNameColumn, array $tableJoneOneOfNameColumn, array $tableJoneTwoOfNameColumn)
+    {
+
+        $tOne = [];
+        $TJOne = [];
+        $TJTwo = [];
+
+        foreach ($tableOfNameColumn as $key => $value) {
+            $tOne[] = "`" . $table . "`" . "." . "`" . $value . "`";
+        }
+
+        foreach ($tableJoneOneOfNameColumn as $key => $value) {
+            $TJOne[] = "`" . $tableJoneOne . "`" . "." . "`" . $value . "`";
+        }
+
+        foreach ($tableJoneTwoOfNameColumn as $key => $value) {
+            $TJTwo[] = "`" . $tableJoneTwo . "`" . "." . "`" . $value . "`";
+        }
+
+        $finshTOne = implode(",", $tOne);
+        $finshTJOne = implode(",", $TJOne);
+        $finshTJTwo = implode(",", $TJTwo);
+
+        $finsh = $finshTOne . "," . $finshTJOne . "," . $finshTJTwo;
+
+
+        return $finsh;
+    }
+
+
+    public function selectJoinTwo(
+        string $table,
+        string $tableJoneOne,
+        string $tableJoneTwo,
+        array $tableOfNameColumn,
+        array $tableJoneOneOfNameColumn,
+        array $tableJoneTwoOfNameColumn,
+        string $ONJoinOne,
+        string $ONJoinTwe,
+        string $orderbywhat
+    ) {
+
+        $finsh = $this->disJoin($table,  $tableJoneOne,  $tableJoneTwo,  $tableOfNameColumn,  $tableJoneOneOfNameColumn,  $tableJoneTwoOfNameColumn);
+
+
+        try {
+
+            $db = $this->connect();
+
+            $sql = "SELECT $finsh
+            FROM  `$table`
+            INNER JOIN `$tableJoneOne` 
+            ON $ONJoinOne
+            INNER JOIN `$tableJoneTwo` 
+            ON  $ONJoinTwe 
+            ORDER BY `$table`.`$orderbywhat`";
+
+            var_dump($sql);
+            die;
+
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            $re = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $re;
+        } catch (PDOException $e) {
+
+            echo "Failed" . $e->getMessage();
+        }
+    }
+
+
+    public function selectJoin(string $sql)
+    {
+
+        try {
+
+            $db = $this->connect();
+
+            $sql = "$sql";
             $stmt = $db->prepare($sql);
             $stmt->execute();
             $re = $stmt->fetchAll(PDO::FETCH_ASSOC);
