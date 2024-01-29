@@ -77,6 +77,7 @@ class db
             header("location: /pages/$folderName/index.php");
         } catch (PDOException $e) {
 
+            header("location: /pages/error.php");
             echo "Failed" . $e->getMessage();
         }
     }
@@ -99,6 +100,7 @@ class db
             header("location: /pages/$folderName/index.php");
         } catch (PDOException $e) {
 
+            header("location: /pages/error.php");
             echo "Failed" . $e->getMessage();
         }
     }
@@ -116,7 +118,7 @@ class db
 
             header("location: /pages/$folderName/index.php");
         } catch (PDOException $e) {
-
+            header("location: /pages/error.php");
             echo "Failed" . $e->getMessage();
         }
     }
@@ -133,7 +135,7 @@ class db
             $re = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $re;
         } catch (PDOException $e) {
-
+            header("location: /pages/error.php");
             echo "Failed" . $e->getMessage();
         }
     }
@@ -203,7 +205,7 @@ class db
             $re = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $re;
         } catch (PDOException $e) {
-
+            header("location: /pages/error.php");
             echo "Failed" . $e->getMessage();
         }
     }
@@ -222,7 +224,7 @@ class db
             $re = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $re;
         } catch (PDOException $e) {
-
+            header("location: /pages/error.php");
             echo "Failed" . $e->getMessage();
         }
     }
